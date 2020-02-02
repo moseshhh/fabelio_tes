@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/fabelio_tes/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/fabelio_tes/static/js/main.f63b3070.chunk.js",
-    "main.js.map": "/fabelio_tes/static/js/main.f63b3070.chunk.js.map",
+    "main.js": "/fabelio_tes/static/js/main.08fdb1ba.chunk.js",
+    "main.js.map": "/fabelio_tes/static/js/main.08fdb1ba.chunk.js.map",
     "runtime-main.js": "/fabelio_tes/static/js/runtime-main.f1c1eccf.js",
     "runtime-main.js.map": "/fabelio_tes/static/js/runtime-main.f1c1eccf.js.map",
     "static/js/2.031b3243.chunk.js": "/fabelio_tes/static/js/2.031b3243.chunk.js",
     "static/js/2.031b3243.chunk.js.map": "/fabelio_tes/static/js/2.031b3243.chunk.js.map",
     "index.html": "/fabelio_tes/index.html",
-    "precache-manifest.f170101ea50a683f7092dae7ff775d26.js": "/fabelio_tes/precache-manifest.f170101ea50a683f7092dae7ff775d26.js",
+    "precache-manifest.2794b7a81576e017d8b8cde9911d2e13.js": "/fabelio_tes/precache-manifest.2794b7a81576e017d8b8cde9911d2e13.js",
     "service-worker.js": "/fabelio_tes/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/fabelio_tes/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/2.031b3243.chunk.js.LICENSE.txt": "/fabelio_tes/static/js/2.031b3243.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.f1c1eccf.js",
     "static/js/2.031b3243.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.f63b3070.chunk.js"
+    "static/js/main.08fdb1ba.chunk.js"
   ]
 }
