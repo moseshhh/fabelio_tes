@@ -39,7 +39,24 @@ class Navbar extends React.Component {
         super()
         this.state = {
             furnitureStyles: [],
-            deliveryTime: ['1 week', '2 weeks', '1 month', 'more'],
+            deliveryTime: [
+                {
+                    title :'1 week',
+                    value : "7"
+                },     
+                {
+                    title :'2 week',
+                    value : "14"
+                },     
+                {
+                    title :'1 month',
+                    value : "30"
+                },     
+                {
+                    title :'more',
+                    value : "1000"
+                },     
+            ],
             products: [],
             filtered_product : [],
             query: {
@@ -58,7 +75,8 @@ class Navbar extends React.Component {
             .then((data) => {
                 this.setState({
                     furnitureStyles: data.furniture_styles,
-                    products: data.products
+                    products: data.products,
+                    filtered_product : data.products
                 })
             })
             .catch(err => console.log('error', err))
@@ -81,7 +99,6 @@ class Navbar extends React.Component {
                 query: new_query
             })
         }
-
         this.handleQuery()
     }
 
@@ -89,49 +106,46 @@ class Navbar extends React.Component {
         if (ev.target.value) {
             let query = { ...this.state.query }
             query.searchString = ev.target.value
-            this.setState({ query })
+            this.setState({ query }, ()=> this.handleQuery())
         } else {
             let query = { ...this.state.query }
             query.searchString = ''
-            this.setState({ query })
+            this.setState({ query }, ()=>this.handleQuery())
         }
-        this.handleQuery()
+        
     }
 
     handleQuery = ()=>{
         var filtered_data = [...this.state.products]
-        console.log(this.state.query.styles)
+        var query = this.state.query
         if (this.state.query.styles.length > 0) {
             let newdata = filtered_data.filter((el) => { 
                 return this.state.query.styles.some(arr=>el.furniture_style.includes(arr))
             })
             filtered_data = newdata
-            console.log(newdata)
         }
-        // if (this.state.query.delivery.length > 0) {
-        //     let newdata = filtered_data.filter((el) => {
-        //         return this.state.query.category.includes(el.type)
-        //     })
-        //     filtered_data = newdata
-        // }
-        if (this.state.query.searchString) {
+        if (query.delivery.length > 0) {
+            let toInt = query.delivery.map((value)=>parseInt(value))
+            let maxDelivTime = Math.max(...toInt)
             let newdata = filtered_data.filter((el) => {
-                if (el.name) {
-                    return el.name.includes(this.state.query.searchString)
-                }
-                else {
-                    return false
-                }
+                return parseInt(el.delivery_time) <= maxDelivTime
             })
             filtered_data = newdata
-            console.log(newdata)
         }
-
+        if (this.state.query.searchString) {
+            let newdata = filtered_data.filter((el) => {
+                    return el.name.toLowerCase().includes(this.state.query.searchString)              
+            })
+            filtered_data = newdata
+        }
         this.setState({ filtered_product: filtered_data })
     }
 
+    generateCard=()=>{
+        return <DataView products={this.state.filtered_product}/>
+    }
+
     render() {
-        console.log(this.state.products)
         const { classes } = this.props;
         return (
             <div>
@@ -183,9 +197,9 @@ class Navbar extends React.Component {
                                                         (el) => {
                                                             return (
                                                                 <CheckboxItem
-                                                                    title={el}
-                                                                    values={el}
-                                                                    isChecked={this.state.query.delivery.includes(el)}
+                                                                    title={el.title}
+                                                                    values={el.value}
+                                                                    isChecked={this.state.query.delivery.includes(el.value)}
                                                                     checkedItem={(ev) => this.handleChange(ev, 'delivery')} />
                                                             )
                                                         }
@@ -193,16 +207,16 @@ class Navbar extends React.Component {
                                                 }
                                             </Select>
                                         </FormControl>
-
                                     </Grid>
                                 </Grid>
-
                             </div>
                         </Toolbar>
                     </AppBar>
                 </div>
+                
                 {
-                    this.state.products ? <DataView products={this.state.products} /> : null
+                    this.state.filtered_product.length > 0 ? this.generateCard()
+                     : null
                 }
                 
             </div>
